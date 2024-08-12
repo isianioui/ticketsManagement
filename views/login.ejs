@@ -1,0 +1,56 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <form action="/login" method="POST">
+    <label for="nom">Nom:</label>
+    <input type="text" id="username" name="username" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <button type="submit">Login</button>
+  </form>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login page</title>
+    <link rel="stylesheet" href="assets/style.css">
+    </head>
+<body>
+
+
+  <% if (typeof error !== 'undefined') { %>
+    <p style="color: rgb(0, 0, 0);"><%= error %></p>
+  <% } %>
+  <div class="container">
+    <header>
+        <img src="/assets/images/logo-pluriel.png" alt="Company Logo" class="top-logo">
+    </header>
+    <h1> login</h1>
+    <img src="/assets/images/logo-pluriel.png" alt="Company Logo" class="logo">
+    <form action="/login" method="POST" id="loginForm">
+        <label for="username">Username:</label><br>
+        <input type="text"  name="username" id="username"><br><br>
+        <label for="password">Password:</label><br>
+            <div class="password-wrapper">
+                <input type="password"  name="password" id="password">
+                <img src="/assets/images/action-hide-password.png" alt="Hide/Show" id="show-hide" class="show-hide-icon">
+            </div>
+            <br><br>
+        <input type="submit" value="Login">
+    </form>
+  </div>
+<script src="/assets/script.js"></script>
+</body>
+</html>

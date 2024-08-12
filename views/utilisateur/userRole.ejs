@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Tickets</title>
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <style>
+        .container {
+            margin-top: 30px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .navbar-search-block {
+            transition: all 0.3s;
+        }
+        .navbar-search-block form {
+            display: flex;
+        }
+        .form-control-navbar {
+            margin-right: 5px;
+        }
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .breadcrumb-item a {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/home1" class="nav-link">Home</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+          <i class="fas fa-search"></i>
+        </a>
+        <div class="navbar-search-block">
+          <form class="form-inline">
+            <div class="input-group input-group-sm">
+              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Tables
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/tickets" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tickets List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/clients" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Clients Table</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/demandeurs" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Demandeur Table</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/utilisateurs" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Users Table</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="/utilisateurs/userRole" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Users role</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Tickets</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/home1">Home</a></li>
+              <li class="breadcrumb-item active">Tickets</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">User Permissions Management</h3>
+          </div>
+          <div class="card-body">
+            <form action="/utilisateurs/assign-permissions" method="post">
+              <div class="form-group">
+                <label for="user">Select User:</label>
+                <select class="form-control" id="user" name="userId">
+                  <% users.forEach(user => { %>
+                    <option value="<%= user.id %>"><%= user.nom %></option>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Permissions:</label>
+                <% permissions.forEach(permission => { %>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="permission_<%= permission.id %>" name="permissions[]" value="<%= permission.id %>">
+                    <label class="form-check-label" for="permission_<%= permission.id %>">
+                      <%= permission.name %>
+                    </label>
+                  </div>
+                <% }); %>
+              </div>
+              <button type="submit" class="btn btn-primary">Assign Permissions</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="main-footer">
+    <strong>&copy; 2024 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.2.0
+    </div>
+  </footer>
+
+  <aside class="control-sidebar control-sidebar-dark">
+  </aside>
+</div>
+
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Ticket</title>
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/home1" class="nav-link">Home</a>
+      </li>
+    </ul>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="navbar-search" href="/home1" role="button">
+          <i class="fas fa-search"></i>
+        </a>
+        <div class="navbar-search-block">
+          <form class="form-inline">
+            <div class="input-group input-group-sm">
+              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Tables  
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/tickets" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tickets List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/clients" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>clients table</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/demandeurs" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>demandeur table </p>
+                </a>
+              </li>
+             
+
+              <li class="nav-item">
+                <a href="/utilisateurs" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>users table</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+              <!-- Add other table links here -->
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-primary">Edit Ticket</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/home1">Home</a></li>
+              <li class="breadcrumb-item"><a href="/tickets">Tickets</a></li>
+              <li class="breadcrumb-item"><a href="/tickets/en-attente">Tickets en attente</a></li>
+              <li class="breadcrumb-item"><a href="/tickets/resolu">Tickets resolu</a></li>
+              <li class="breadcrumb-item"><a href="/tickets/rejete">Tickets rejete</a></li>
+              <li class="breadcrumb-item"><a href="/tickets/necessiteIntervention">Tickets besoin intervention</a></li>
+              <li class="breadcrumb-item"><a href="/tickets/en-cours">Tickets en cours</a></li>
+
+
+              
+              <li class="breadcrumb-item active">Edit Ticket</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container bg-white p-4 shadow-sm rounded" style="max-width: 600px;">
+        <h1 class="text-center text-primary mb-4">Edit Ticket</h1>
+        <form action="/tickets/<%= ticket.id %>/edit" method="POST">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <th><label for="description">Description:</label></th>
+                        <td><input type="text" class="form-control" id="description" name="description" value="<%= ticket.description %>" required></td>
+                    </tr>
+                    <tr>
+                        <th><label for="datereception">Date Reception:</label></th>
+                        <td><input type="datetime-local" class="form-control" id="datereception" name="datereception" value="<%= ticket.datereception %>"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="notes">Notes:</label></th>
+                        <td><input type="text" class="form-control" id="notes" name="notes" value="<%= ticket.notes %>"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="client_nom">Client Name:</label></th>
+                        <td><input type="text" class="form-control" id="client_nom" name="client_nom" value="<%= ticket.client_nom %>" required></td>
+                        <!-- Hidden input for client_id -->
+                        <input type="hidden" id="client_id" name="client_id" value="<%= ticket.client_id %>">
+                    </tr>
+                    <tr>
+                        <th><label for="support_id">Support ID:</label></th>
+                        <td><input type="text" class="form-control" id="support_id" name="support_id" value="<%= ticket.support_id %>"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="demandeur_nom">Demandeur Name:</label></th>
+                        <td><input type="text" class="form-control" id="demandeur_nom" name="demandeur_nom" value="<%= ticket.demandeur_nom %>" required></td>
+                        <!-- Hidden input for demandeure_id -->
+                        <input type="hidden" id="demandeure_id" name="demandeure_id" value="<%= ticket.demandeure_id %>">
+                    </tr>
+                    <tr>
+                        <th><label for="etat">Etat:</label></th>
+                        <td>
+                            <select class="form-control" id="etat" name="etat" required>
+                                <option value="en cours" <%= ticket.etat === "en cours" ? "selected" : "" %>>En cours</option>
+                                <option value="resolu" <%= ticket.etat === "resolu" ? "selected" : "" %>>Resolu</option>
+                                <option value="en attente" <%= ticket.etat === "en attente" ? "selected" : "" %>>En attente</option>
+                                <option value="necessite une intervention" <%= ticket.etat === "necessite une intervention" ? "selected" : "" %>>Necessite une intervention</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="priorite">Priorite:</label></th>
+                        <td>
+                            <select class="form-control" id="priorite" name="priorite" required>
+                                <option value="haute" <%= ticket.priorite === "haute" ? "selected" : "" %>>Haute</option>
+                                <option value="moyenne" <%= ticket.priorite === "moyenne" ? "selected" : "" %>>Moyenne</option>
+                                <option value="basse" <%= ticket.priorite === "basse" ? "selected" : "" %>>Basse</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="statut">Status:</label></th>
+                        <td>
+                            <select class="form-control" id="statut" name="statut" required>
+                                <option value="1" <%= ticket.statut == 1 ? 'selected' : '' %>>Active</option>
+                                <option value="0" <%= ticket.statut == 0 ? 'selected' : '' %>>Inactive</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+               <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="/tickets" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <strong>&copy; 2024 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.2.0
+    </div>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+  </aside>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js">

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Ticket</title>
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <style>
+        .content-wrapper {
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/home1" class="nav-link">Home</a>
+      </li>
+    </ul>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+          <i class="fas fa-search"></i>
+        </a>
+        <div class="navbar-search-block">
+          <form class="form-inline">
+            <div class="input-group input-group-sm">
+              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Tables
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/tickets" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tickets List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/clients" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>clients table</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/demandeurs" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>demandeur table </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="/utilisateurs" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>users table</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+              <!-- Add other table links here -->
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-primary">Create Ticket</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/home1">Home</a></li>
+              <li class="breadcrumb-item"><a href="/tickets">Tickets</a></li>
+              <li class="breadcrumb-item"><a href="/tickets/en-attente">Tickets en attente</a></li>
+              <li class="breadcrumb-item"><a href="/tickets/resolu">Tickets resolu</a></li>
+              <li class="breadcrumb-item"><a href="/tickets/rejete">Tickets rejete</a></li>
+              <li class="breadcrumb-item"><a href="/tickets/necessiteIntervention">Tickets besoin intervention</a></li>
+              <li class="breadcrumb-item"><a href="/tickets/en-cours">Tickets en cours</a></li>
+
+
+              <li class="breadcrumb-item active">Create Ticket</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container">
+        <h1>Create Ticket</h1>
+        <form action="/tickets" method="POST" id="createTicketForm">
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" class="form-control" id="description" name="description" required>
+            </div>
+            <div class="form-group">
+                <label for="notes">Notes:</label>
+                <input type="text" class="form-control" id="notes" name="notes">
+            </div>
+            <div class="form-group">
+                <label for="client_id">Client ID:</label>
+                <input type="number" class="form-control" id="client_id" name="client_id" required>
+            </div>
+            <div class="form-group">
+                <label for="demandeure_id">Demandeur ID:</label>
+                <input type="number" class="form-control" id="demandeure_id" name="demandeure_id" required>
+            </div>
+            <div class="form-group">
+                <label for="etat">Etat:</label>
+                <select class="form-control" id="etat" name="etat" required>
+                    <option value="en cours">En cours</option>
+                    <option value="en attente">En attente</option>
+                    <option value="rejete">Rejeté</option>
+                    <option value="resolu">Résolu</option>
+                    <option value="necessite une intervention">Nécessite une intervention</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="priorite">Priorite:</label>
+                <select class="form-control" id="priorite" name="priorite" required>
+                    <option value="basse">Basse</option>
+                    <option value="moyenne">Moyenne</option>
+                    <option value="haute">Haute</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Create</button>
+        </form>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <strong>&copy; 2024 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.2.0
+    </div>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+  </aside>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.js"></script>
+</body>
+</html>

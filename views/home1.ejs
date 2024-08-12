@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css">
+
+  
+
+  <style>
+    .high-priority {
+    background-color: red;
+    color: white;
+}
+
+.chart-container .card {
+  flex: 1 1 calc(50% - 20px); /* Each chart takes up 50% of the row minus the gap */
+  min-width: 300px; /* Minimum width to prevent shrinking too much */
+}
+.medium-priority {
+    background-color: orange;
+    color: white;
+}
+
+.low-priority {
+    background-color: green;
+    color: white;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between charts */
+}
+
+
+
+.chart-square {
+  width: 680px; /* Set the desired size for the square */
+  height: 310px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc; /* Optional: add a border */
+}
+
+#priorityChart {
+  width: 100%;
+  height: 100%;
+}
+        .chart {
+            width: 100%;
+            height: 400px; /* Adjust height as necessary */
+        }
+
+        #chartContainer {
+            width: 600px;
+            height: 400px;
+        }
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    
+        #enAttenteTable {
+            display: none;
+        }
+
+        
+  </style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="home1" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Contact</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+      <li class="nav-item">
+        <div class="navbar-search-block">
+          <form class="form-inline">
+            <div class="input-group input-group-sm">
+              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+         
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Tables
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./clients" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Clients Table</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./demandeurs" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Demandeur Table</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./tickets" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tickets Table</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./utilisateurs" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Users Table</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+          <li class="nav-item">
+            <a href="utilisateurs/userRole" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Users role</p>
+            </a>
+          </li>
+
+          
+              <!-- More mailbox options... -->
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="home1">Home</a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><%= today_tickets %></h3>
+                <p>Today's Tickets</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-calendar-day"></i>
+              </div>
+              <a href="tickets" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3><%= total_tickets %></h3>
+                <p>Total Tickets</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-ticket-alt"></i>
+              </div>
+              <a href="tickets" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+          </div>
+
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3><%= open_tickets %></h3>
+              <p>tickets en attente</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-ticket-alt"></i>
+            </div>
+            <a href="/tickets/en-attente" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3><%= in_progress_tickets %></h3>
+              <p>ticket en cours</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-ticket-alt"></i>
+            </div>
+            <a href="/tickets/en-cours" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3><%= closed_tickets %></h3>
+              <p>tickets resolu</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-ticket-alt"></i>
+            </div>
+            <a href="/tickets/resolu" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+
+
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3><%= rejected_tickets %></h3>
+              <p>ticket rejetes</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-ticket-alt"></i>
+            </div>
+            <a href="/tickets/rejete" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3><%=  intervention_needed_tickets %></h3>
+              <p>une intervention</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-ticket-alt"></i> 
+            </div>
+            <a href="/tickets/necessiteIntervention" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                      <h3><%= total_clients %></h3>
+                      <p>Total Clients</p>
+                  </div>
+                  <div class="icon">
+                      <i class="fas fa-users"></i>
+                  </div>
+                  <a href="clients" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+          </div>
+      
+          <div class="col-lg-3 col-6">
+              <div class="small-box bg-danger">
+                  <div class="inner">
+                      <h3><%= total_utilisateurs %></h3>
+                      <p>Total Users</p>
+                  </div>
+                  <div class="icon">
+                      <i class="fas fa-user"></i>
+                  </div>
+                  <a href="utilisateurs" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+          </div>
+      
+          <div class="col-lg-3 col-6">
+              <div class="small-box bg-warning">
+                  <div class="inner">
+                      <h3><%= total_demandeurs %></h3>
+                      <p>Total Demandeurs</p>
+                  </div>
+                  <div class="icon">
+                      <i class="fas fa-users"></i>
+                  </div>
+                  <a href="demandeurs" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+          </div>
+      </div>
+
+      
+      
+
+
+
+        <div class="row">
+          <div class="col-12">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Description</th>
+                      <th>Date Reception</th>
+                      <th>Etat</th>
+                      <th>Notes</th>
+                      <th>Priorite</th>
+                      <th>Client</th>
+                      <th>Demandeur</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <% todayTickets.forEach(ticket => { %>
+                      <tr>
+                          <td><%= ticket.id %></td>
+                          <td><%= ticket.description %></td>
+                          <td><%= ticket.datereception %></td>
+                          <td><%= ticket.etat %></td>
+                          <td><%= ticket.notes %></td>
+                          <td class="<%= ticket.priorite === 'haute' ? 'high-priority' : ticket.priorite === 'moyenne' ? 'medium-priority' : 'low-priority' %>">
+                              <%= ticket.priorite %>
+                          </td>
+                          <td><%= ticket.client_nom %></td>
+                          <td><%= ticket.demandeur_nom %></td>
+                      </tr>
+                  <% }) %>
+              </tbody>
+          </table>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-chart-bar mr-1"></i>
+                Monthly Ticket Statistics (Bar Chart)
+              </h3>
+            </div>
+            <div class="card-body">
+              <canvas id="barChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-chart-pie mr-1"></i>
+                Ticket Status Distribution (Donut Chart)
+              </h3>
+            </div>
+            <div class="card-body">
+              <canvas id="donutChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+     
+  <div class="chart-container">
+    <!-- Pie Chart -->
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Ticket Priorities</h4>
+        <canvas id="priorityChart" width="50px" height="50"></canvas>
+      </div>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Priority Distribution</h4>
+        <canvas id="priorityBarChart" width="50" height="50"></canvas>
+      </div>
+    </div>
+  </div>
+    
+  
+    <!-- /.content -->
+  </div>
+
+
+
+        
+        <!-- Tickets Table -->
+       
+  
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  
+
+</div>
+
+
+
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const ctxPie = document.getElementById('priorityChart').getContext('2d');
+      const priorityChart = new Chart(ctxPie, {
+          type: 'pie',
+          data: {
+              labels: ['High Priority', 'Medium Priority', 'Low Priority'],
+              datasets: [{
+                  label: 'Ticket Priorities',
+                  data: [
+                      JSON.parse('<%= high_priority_tickets %>'),
+                      JSON.parse('<%= medium_priority_tickets %>'),
+                      JSON.parse('<%= low_priority_tickets %>')
+                  ],
+                  backgroundColor: ['#ff5733', '#33ff57', '#3357ff'], // Updated colors
+                    hoverBackgroundColor: ['#ff5733', '#33ff57', '#3357ff'] 
+              }]
+          },
+          options: {
+              responsive: true,
+              plugins: {
+                  title: {
+                      display: true,
+                      text: 'Ticket Priority Distribution'
+                  }
+              }
+          }
+      });
+
+      const ctxBar = document.getElementById('priorityBarChart').getContext('2d');
+      const priorityBarChart = new Chart(ctxBar, {
+          type: 'bar',
+          data: {
+              labels: ['High Priority', 'Medium Priority', 'Low Priority'],
+              datasets: [{
+                  label: 'Number of Tickets',
+                  data: [
+                      JSON.parse('<%= high_priority_tickets %>'),
+                      JSON.parse('<%= medium_priority_tickets %>'),
+                      JSON.parse('<%= low_priority_tickets %>')
+                  ],
+                  backgroundColor: 'grey', // Updated color
+                  borderColor: 'grey', 
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              responsive: true,
+              plugins: {
+                  title: {
+                      display: true,
+                      text: 'Ticket Priority Bar Chart'
+                  }
+              },
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+          }
+      });
+  });
+</script>
+
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const ctxBar = document.getElementById('barChart').getContext('2d');
+      const ctxDonut = document.getElementById('donutChart').getContext('2d');
+
+      const monthLabels = JSON.parse('<%- JSON.stringify(monthLabels) %>');
+      const openedTickets = JSON.parse('<%- JSON.stringify(openedTickets) %>');
+      const closedTickets = JSON.parse('<%- JSON.stringify(closedTickets) %>');
+
+      // Bar Chart
+      const barChart = new Chart(ctxBar, {
+          type: 'bar',
+          data: {
+              labels: monthLabels,
+              datasets: [
+                  {
+                      label: 'Opened Tickets',
+                      backgroundColor: 'rgba(60,141,188,0.9)',
+                      borderColor: 'rgba(60,141,188,0.8)',
+                      pointRadius: false,
+                      pointColor: '#3b8bba',
+                      pointStrokeColor: 'rgba(60,141,188,1)',
+                      pointHighlightFill: '#fff',
+                      pointHighlightStroke: 'rgba(60,141,188,1)',
+                      data: openedTickets
+                  },
+                  {
+                      label: 'Closed Tickets',
+                      backgroundColor: 'rgba(210, 214, 222, 1)',
+                      borderColor: 'rgba(210, 214, 222, 1)',
+                      pointRadius: false,
+                      pointColor: 'rgba(210, 214, 222, 1)',
+                      pointStrokeColor: '#c1c7d1',
+                      pointHighlightFill: '#fff',
+                      pointHighlightStroke: 'rgba(220,220,220,1)',
+                      data: closedTickets
+                  },
+              ]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              datasetFill: false
+          }
+      });
+
+      // Donut Chart
+      const donutChart = new Chart(ctxDonut, {
+          type: 'doughnut',
+          data: {
+              labels: ['Open', 'Closed'],
+              datasets: [
+                  {
+                      label: 'Ticket Status',
+                      backgroundColor: ['#f56954', '#00a65a'],
+                      data: [openedTickets.reduce((a, b) => a + b, 0), closedTickets.reduce((a, b) => a + b, 0)]
+                  }
+              ]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              
+          }
+      });
+  });
+     
+</script>
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="dist/js/pages/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
